@@ -23,6 +23,7 @@ export async function GET(request: Request) {
       products.map(async (currentProduct) => {
         // Scrape product
         const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
+        const products = await Product.find({}).maxTimeMS(20000); // Increase timeout to 20 seconds
 
         if (!scrapedProduct) return;
 
